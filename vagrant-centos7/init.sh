@@ -87,18 +87,18 @@ do
 
     git_clone "$OO_HOME/$hostname" "$PUB_GH_ORIGIN" "circuit-oneops-1"
     git_add_remote "$OO_HOME/$hostname" "$PUB_GH_UPSTREAM" "circuit-oneops-1" "upstream"
-    git_pull_remote "$OO_HOME/$hostname" "upstream"
+    git_pull_remote "$OO_HOME/$hostname" "upstream" "circuit-oneops-1"
     git_verify "$OO_HOME/$hostname/circuit-oneops-1"
 
     git_clone "$OO_HOME/$hostname" "$PUB_GH_ORIGIN" "oneops-admin"
     git_add_remote "$OO_HOME/$hostname" "$PUB_GH_UPSTREAM" "oneops-admin" "upstream"
-    git_pull_remote "$OO_HOME/$hostname" "upstream"
+    git_pull_remote "$OO_HOME/$hostname" "upstream" "oneops-admin"
     git_verify "$OO_HOME/$hostname/oneops-admin"
 
     cd "$VGRT_HOME"
 
     vagrant up $hostname
-    vagrant halt $hostname
+    vagrant reload $hostname
 done
 
 
