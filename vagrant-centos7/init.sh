@@ -39,6 +39,20 @@ git_add_remote () {
     fi
 }
 
+git_pull_remote () {
+    # $1 => directory
+    # $2 => remote name
+    # $3 => repo
+
+    if [ -d "$1/$3" ]; then
+      echo "pulling from $2 on $3"
+      cd "$1/$3"
+      git pull "$2" master
+    else
+      echo "repo does not exist"
+    fi
+}
+
 make_directory () {
     # $1 => directory
 
@@ -73,10 +87,12 @@ do
 
     git_clone "$OO_HOME/$hostname" "$PUB_GH_ORIGIN" "circuit-oneops-1"
     git_add_remote "$OO_HOME/$hostname" "$PUB_GH_UPSTREAM" "circuit-oneops-1" "upstream"
+    git_pull_remote "$OO_HOME/$hostname" "upstream"
     git_verify "$OO_HOME/$hostname/circuit-oneops-1"
 
     git_clone "$OO_HOME/$hostname" "$PUB_GH_ORIGIN" "oneops-admin"
     git_add_remote "$OO_HOME/$hostname" "$PUB_GH_UPSTREAM" "oneops-admin" "upstream"
+    git_pull_remote "$OO_HOME/$hostname" "upstream"
     git_verify "$OO_HOME/$hostname/oneops-admin"
 
     cd "$VGRT_HOME"
