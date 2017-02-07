@@ -5,7 +5,8 @@ cd /home/oneops
 
 export BUILD_BASE='/home/oneops/build'
 export OO_HOME='/home/oneops'
-export GITHUB_URL='https://github.com/oneops'
+# export GITHUB_URL='https://github.com/oneops'
+export GITHUB_URL='https://github.com/Azure-Refactor'
 
 mkdir -p $BUILD_BASE
 
