@@ -115,7 +115,7 @@ do
     cd "$VGRT_HOME"
 
     vagrant up $hostname
-    vagrant halt $hostname
+    vagrant reload $hostname
 done
 
 
