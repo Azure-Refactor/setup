@@ -4,8 +4,13 @@ export OO_HOME="$HOME/OneOps"
 export VGRT_HOME="$PWD"
 
 export PUB_GH="https://github.com"
+export WMT_GH="https://gecgithub01.walmart.com"
+
 export PUB_GH_ORIGIN="$PUB_GH/Azure-Refactor"
 export PUB_GH_UPSTREAM="$PUB_GH/oneops"
+
+export WMT_GH_ORIGIN="$WMT_GH/CP-PlatformServices"
+export WMT_GH_UPSTREAM="$WMT_GH/walmartlabs"
 
 git_clone () {
     # $1 => directory
@@ -83,16 +88,28 @@ do
     make_directory "$OO_HOME"
     make_directory "$OO_HOME/$hostname"
 
+    pause "Make sure you are able to connect to $WMT_GH. Press [ENTER] to continue... "
+
+    git_clone "$OO_HOME/$hostname" "$WMT_GH_ORIGIN" "circuit-main-1"
+    git_add_remote "$OO_HOME/$hostname" "$WMT_GH_UPSTREAM" "circuit-main-1" "upstream"
+    git_pull_remote "$OO_HOME/$hostname" "upstream" "circuit-main-1"
+    git_verify "$OO_HOME/$hostname/circuit-main-1"
+
+    git_clone "$OO_HOME/$hostname" "$WMT_GH_ORIGIN" "circuit-walmartlabs-1"
+    git_add_remote "$OO_HOME/$hostname" "$WMT_GH_UPSTREAM" "circuit-walmartlabs-1" "upstream"
+    git_pull_remote "$OO_HOME/$hostname" "upstream" "circuit-walmartlabs-1"
+    git_verify "$OO_HOME/$hostname/circuit-walmartlabs-1"
+
     pause "Make sure you are able to connect to $PUB_GH. Press [ENTER] to continue... "
 
     git_clone "$OO_HOME/$hostname" "$PUB_GH_ORIGIN" "circuit-oneops-1"
     git_add_remote "$OO_HOME/$hostname" "$PUB_GH_UPSTREAM" "circuit-oneops-1" "upstream"
-    git_pull_remote "$OO_HOME/$hostname" "upstream"
+    git_pull_remote "$OO_HOME/$hostname" "upstream" "circuit-oneops-1"
     git_verify "$OO_HOME/$hostname/circuit-oneops-1"
 
     git_clone "$OO_HOME/$hostname" "$PUB_GH_ORIGIN" "oneops-admin"
     git_add_remote "$OO_HOME/$hostname" "$PUB_GH_UPSTREAM" "oneops-admin" "upstream"
-    git_pull_remote "$OO_HOME/$hostname" "upstream"
+    git_pull_remote "$OO_HOME/$hostname" "upstream" "oneops-admin"
     git_verify "$OO_HOME/$hostname/oneops-admin"
 
     cd "$VGRT_HOME"
